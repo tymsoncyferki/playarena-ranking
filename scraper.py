@@ -1,6 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
-from app import Player
+from app import Player, db
 import re
 
 
@@ -22,4 +22,6 @@ def scrape_rider(url, team=None):
     player_rank = content.find('div', class_='col-md-4 col-sm-12 text-center').find('span', class_='rankCounter5').text.strip()
     player_image = get_image_url(content)
     player = Player(id=player_id, name=player_name, rank=player_rank, team=team, image=player_image)
+    db.session.add(player)
+    db.session.commit()
     print(player)
