@@ -5,7 +5,6 @@ from flask_migrate import Migrate
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
 db = SQLAlchemy(app)
-db.init_app()
 migrate = Migrate(app, db)
 
 app.app_context().push()
@@ -20,6 +19,9 @@ class Player(db.Model):
 
     def __repr__(self):
         return f'Player {self.id}: {self.name} from {self.team}, rank: {self.rank}'
+
+    def get_url(self):
+        return "https://playarena.pl/" + str(self.id) + ",profil_zawodnika,rozgrywek_amatorskich,index.html"
 
 
 @app.route('/')

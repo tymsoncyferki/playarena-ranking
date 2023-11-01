@@ -4,6 +4,10 @@ from scraper import *
 
 class TestScraper(unittest.TestCase):
 
+    def test_remove_quotes(self):
+        url = remove_quotes("'/uf/media/images_full/389266-0ac00115-8c29-6bf8.jpg'")
+        self.assertEqual(url, "/uf/media/images_full/389266-0ac00115-8c29-6bf8.jpg")
+
     def test_get_image_url(self):
         html = '<div class="pull-left" id="user_avatar" data-update-progresbar="false" data-show-popover="false" +' \
                   ' data-container="body" data-toggle="popover" data-placement="bottom" data-content="Dodaj swoje' \
