@@ -5,22 +5,29 @@
 {% endblock %}
 
 {% block body %}
-    <div class="content">
+    <div class="container-md">
         <h1>Playarena ranking</h1>
 
         <table>
-        <tr>
-            <th>Rank</th>
-            <th>Name</th>
-            <th>Team</th>
-        </tr>
-        <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-    </table>
-
+            <thead>
+            <tr>
+                <th>Rank</th>
+                <th></th>
+                <th>Name</th>
+                <th>Team</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for player in players %}
+            <tr>
+                <td>{{ player.rank }}</td>
+                <th><img src="{{ player.image }}" alt="player photo" height="80px" width="80px"></th>
+                <td><a href="#">{{ player.name }}</a></td>
+                <td>{{ player.team }}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
     </div>
 
 {% endblock %}
