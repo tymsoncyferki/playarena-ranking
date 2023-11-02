@@ -1,6 +1,8 @@
 # Playarena ranking
 
-Small side project which aim was to create a page with the ranking of players from playarena (on the official site players rank can only be found on view of the particular player). Unofrtunately it turned out that this ranking does not make sense - there are multiple players with the same rank and many positions are missing. Thats why I have abandoned further development of this app.
+A small side project aimed to create a page with the ranking of players from Playarena, as on the official site, a player's rank can only be found on the profile of that particular player. Unfortunately, it turned out that the ranking does not make sense; multiple players have the same rank, and many positions are missing. Due to these issues, I decided to abandon further development of this app.
 
 <br>
+
 ![Photo1](https://github.com/tymsoncyferki/playarena-ranking/blob/master/readme_files/screen.png)
+
