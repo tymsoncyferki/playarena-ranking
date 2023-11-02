@@ -43,7 +43,7 @@ def scrape_player(url, team=None):
     content = BeautifulSoup(page.text, 'html.parser')
     player_id = re.search(r'(\d+)', url).group(1)
     if Player.query.filter_by(id=player_id).first():
-        print('Player already scraped')
+        print('--Player already scraped')
         return
     player_name = content.find('div', {'id': 'user_name'}).text.strip()
     player_rank = content.find('div', class_='col-md-4 col-sm-12 text-center').find('span',
@@ -62,7 +62,7 @@ def get_team_members_content(url):
     driver.get(url)
     link = driver.find_element(By.XPATH, "//a[@id='ajax_team_members']")
     link.click()
-    time.sleep(0.5)
+    time.sleep(1)
     return driver.page_source
 
 
@@ -91,10 +91,27 @@ def scrape_league(url):
     content = BeautifulSoup(page, 'html.parser')
     league = content.find('div', {'id': 'ajax_content'})
     league_tables = league.find_all('tbody')
-    print(content)
     for table in league_tables:
         table_rows = table.find_all('tr')
         for row in table_rows:
             url = row.find('a').get('href')
             team_url = "https://playarena.pl" + url
             scrape_team(team_url)
+
+
+def scrape_city(url):
+    chrome_options = Options()
+    chrome_options.add_argument("--headless")
+    driver = webdriver.Chrome(options=chrome_options)
+    driver.get(url)
+    time.sleep(0.5)
+    page = driver.page_source
+    content = BeautifulSoup(page, 'html.parser')
+    city = content.find('a', {'id': 'ajax_branch_tables'}).find_next_sibling()
+    city_leagues = city.find_all('a')
+    for league in city_leagues:
+        print(league)
+        league_url = "https://playarena.pl/umbrella?city_id=484" + league.get('href')
+        print(league_url)
+        scrape_league(league_url)
+
