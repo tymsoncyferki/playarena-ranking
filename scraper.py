@@ -52,7 +52,7 @@ def scrape_player(url, team=None):
     player = Player(id=player_id, name=player_name, rank=player_rank, team=team, image=player_image)
     db.session.add(player)
     db.session.commit()
-    print(player)
+    print(f'--{player}')
 
 
 def get_team_members_content(url):
@@ -70,11 +70,31 @@ def scrape_team(url):
     page = get_team_members_content(url)
     content = BeautifulSoup(page, 'html.parser')
     team_name = content.find('div', {'id': "team_name"}).findChild().text.strip()
-    team_members = content.find('div', {'class': 'teamMembers'})
-    team_members_tables = team_members.find_all('tbody')
-    for table in team_members_tables:
+    members = content.find('div', {'class': 'teamMembers'})
+    members_tables = members.find_all('tbody')
+    print(f'-{team_name}')
+    for table in members_tables:
         table_rows = table.find_all('tr')
         for row in table_rows:
             url = row.find('a', class_='c_default').get('href')
             player_url = "https://playarena.pl" + url
             scrape_player(player_url, team_name)
+
+
+def scrape_league(url):
+    chrome_options = Options()
+    chrome_options.add_argument("--headless")
+    driver = webdriver.Chrome(options=chrome_options)
+    driver.get(url)
+    time.sleep(0.5)
+    page = driver.page_source
+    content = BeautifulSoup(page, 'html.parser')
+    league = content.find('div', {'id': 'ajax_content'})
+    league_tables = league.find_all('tbody')
+    print(content)
+    for table in league_tables:
+        table_rows = table.find_all('tr')
+        for row in table_rows:
+            url = row.find('a').get('href')
+            team_url = "https://playarena.pl" + url
+            scrape_team(team_url)

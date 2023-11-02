@@ -6,25 +6,49 @@
 
 {% block body %}
     <div class="container-md">
-        <h1>Playarena ranking</h1>
-
+        <div class="header">
+            <h3 style="margin-right: auto;">Ranking zawodników</h3>
+            <a href="https://playarena.pl" target="_blank"><img style="height: 50px;" src="https://playarena.pl/assets/dozzy/img/logo/logo.svg"></a>
+        </div>
         <table>
             <thead>
             <tr>
-                <th>Rank</th>
+                <th>Pozycja</th>
                 <th></th>
-                <th>Name</th>
-                <th>Team</th>
+                <th>Imię</th>
+                <th>Drużyna</th>
             </tr>
             </thead>
             <tbody>
             {% for player in players %}
+                <tr>
+                    <td>{{ player.rank }}</td>
+                    <td><img src="{{ player.image }}" alt="player photo" height="80px" width="80px"></td>
+                    <td><a href="{{ player.get_url() }}" target="_blank" class="link">{{ player.name }}</a></td>
+                    <td>{{ player.team }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    <br>
+        <h3>Niesklasyfikowani gracze</h3>
+        <table>
+            <thead>
             <tr>
-                <td>{{ player.rank }}</td>
-                <th><img src="{{ player.image }}" alt="player photo" height="80px" width="80px"></th>
-                <td><a href="#">{{ player.name }}</a></td>
-                <td>{{ player.team }}</td>
+                <th>Pozycja</th>
+                <th></th>
+                <th>Imię</th>
+                <th>Drużyna</th>
             </tr>
+            </thead>
+            <tbody>
+            {% for player in rest_players %}
+                <tr>
+                    <td>{{ player.rank }}</td>
+                    <td><img src="{{ player.image }}" alt="player photo" height="80px" width="80px"></td>
+                    <td><a href="{{ player.get_url() }}" target="_blank" class="link">{{ player.name }}</a></td>
+                    <td>{{ player.team }}</td>
+                </tr>
             {% endfor %}
             </tbody>
         </table>

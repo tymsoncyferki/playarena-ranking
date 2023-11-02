@@ -1,4 +1,39 @@
-body {
-    margin: 0;
-    font-family: sans-serif;
+:root {
+    --primary: #6d904c;
 }
+
+.header {
+    display: flex;
+    align-items: center;
+    height: 80px;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 0 auto;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+}
+
+tr:nth-child(even) {
+    background-color: #e8ecd4;
+}
+
+th {
+    background-color: #6d904c;
+    color: white;
+}
+
+.link {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+

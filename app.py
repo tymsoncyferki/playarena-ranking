@@ -26,8 +26,9 @@ class Player(db.Model):
 
 @app.route('/')
 def index():
-    players = Player.query.all()
-    return render_template("index.html", players=players)
+    ranked_players = Player.query.filter(Player.rank != 0).order_by(Player.rank).all()
+    rest_players = Player.query.filter(Player.rank == 0).all()
+    return render_template("index.html", players=ranked_players, rest_players=rest_players)
 
 
 if __name__ == '__main__':
